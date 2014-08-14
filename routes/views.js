@@ -1,8 +1,7 @@
 var log = require('../libs/log')(module);
-var databaseUrl = 'localhost/cda'; // "username:password@example.com/mydb"
-log.info(databaseUrl);
-var collections = ["patients","records"];
-var db = require("mongojs").connect(databaseUrl, collections);
+
+var config = require('../libs/config');
+var db = require("mongojs").connect(config.get('mongodb'), config.get('collections'));
 
 app.get('/', function(req,res){
   db.patients.find({},{processo:1,_id:0}, function(err, result) {

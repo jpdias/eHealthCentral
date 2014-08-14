@@ -4,6 +4,7 @@ var path = require('path');
 var log = require('./libs/log')(module);
 var app = module.exports = express();
 var config = require('./libs/config');
+
 app.set('port', process.env.PORT || config.get('port'));
 app.set('views', path.join(__dirname,'views'));
 app.set('view engine', 'hjs');

@@ -3,10 +3,7 @@ var log = require('../libs/log')(module);
 
 
 var config = require('../libs/config');
-var databaseUrl = config.get('mongodb'); // "username:password@example.com/mydb"
-log.info(databaseUrl);
-var collections = ["patients","records"];
-var db = require("mongojs").connect(databaseUrl, collections);
+var db = require("mongojs").connect(config.get('mongodb'), config.get('collections'));
 
 //Error handling !
 app.use(function(req, res, next){
