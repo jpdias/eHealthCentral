@@ -1,0 +1,40 @@
+{
+  "name": "eHealthCentral",
+  "version": "0.0.1",
+  "description": "RESTful API for medical data",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^3.0.0-rc4",
+    "http": "^0.0.0",
+    "hjs": "^0.0.6",
+    "mongodb": "^1.4.7",
+    "mongoose": "^3.8.14",
+    "mongojs": "^0.13.1",
+    "nconf": "^0.6.9",
+    "path": "^0.4.9",
+    "winston": "^0.7.3",
+    "xmlbuilder": "^2.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/jpdias/eHealthCentral.git"
+  },
+  "keywords": [
+    "ehealth",
+    "node",
+    "npm",
+    "express",
+    "rest",
+    "restful"
+  ],
+  "author": "João Pedro Dias, Hugo Peixoto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpdias/eHealthCentral/issues"
+  },
+  "homepage": "https://github.com/jpdias/eHealthCentral"
+}
