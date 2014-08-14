@@ -1,0 +1,258 @@
+
+<html>
+<head>
+<meta charset="UTF-8">
+  <LINK REL=StyleSheet HREF="css/bootstrap.css" TYPE="text/css" MEDIA=screen>
+  <LINK REL=StyleSheet HREF="css/timeline.css" TYPE="text/css" MEDIA=screen>
+  <link rel="stylesheet" type="text/css" href="fonts/flaticon.css">
+  <title>Patient Timeline</title>
+</head>
+<body>
+
+<style>
+body{
+  overflow-y:scroll;
+}
+.timeline-body{
+  display:none;
+}
+.timeline-title{
+  color:#2980b9;
+  cursor: pointer;
+  cursor: hand;
+}
+.custom {
+    width: 130px !important;
+    font-size: 17px;
+}
+</style>
+<div style="text-align:center">
+  <h4 >
+    <div class="col-md-12" style="background-color:#ecf0f1">
+      <br>
+      <div class="col-md-6">
+        <h4>Nome: {{nome}}</h4>
+        <h4>Data de Nascimento: {{datanasc}}</h4>
+      </div>
+      <div class="col-md-6">
+        <h4>Número do Processo: {{processo}}</h4>
+        <h4>Sexo: {{sexo}}</h4>
+      </div>
+    </div>
+    <div class="col-md-12" style="text-align:center">
+      <hr>
+        <button id="btn_diag" style="background-color:#999;color:white" type="button" class="btn btn-default custom">
+          <i class="flaticon-male100"></i> Diagnósticos
+        </button>
+        <button id="btn_exam" style="color:white" type="button" class="btn btn-warning custom">
+          <i class="flaticon-medicine14"></i> Exames
+        </button>
+        <button id="btn_con" style="color:white" type="button" class="btn btn-primary custom">
+          <i class="flaticon-thermometer23"></i> Consultas
+        </button>
+        <button id="btn_anl" style="color:white" type="button" class="btn btn-success custom">
+          <i class="flaticon-drops1"></i> Análises
+        </button>
+    </div>
+  </h4>
+</div>
+<div class="container">
+  <div class="col-md-12" >
+  <hr>
+    <ul class="timeline" id="records">
+
+      {{#diagnosticos}}
+        <li class="diagnosticos">
+          <div class="timeline-badge"><i class="flaticon-male100"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title" id="desc">{{descricao}}</h4>
+              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><span class="date"> {{data}}<span> </small></p>
+            </div>
+            <div class="timeline-body">
+              <p>Médico: {{medico}} <br> Código: {{codigo}}</div>
+          </div>
+        </li>
+      {{/diagnosticos}}
+      {{#exames}}
+      <li class="exames timeline-inverted">
+          <div class="timeline-badge warning"><i class="flaticon-medicine14"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">{{modalidade}}</h4>
+              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><span class="date"> {{dataexame}}<span> </small></p>
+            </div>
+            <div class="timeline-body">
+
+              <br>
+                {{#actos}}
+                  <p>Código acto: {{cod_acto}} - Descrição: {{des_acto}}</p>
+                {{/actos}}
+                {{#pathrelatorio}}
+                  <button class="btn btn-primary" role="button" onclick="openPDF('{{pathrelatorio}}')"><i class="glyphicon glyphicon-file"></i> Relatório</button>
+                {{/pathrelatorio}}
+                {{#anexos}}
+                  <button class="btn btn-primary" role="button" onclick="openPDF('{{anexo}}')"><i class="glyphicon glyphicon-file"></i> {{tipo}}</button>
+                {{/anexos}}
+            </div>
+          </div>
+      </li>
+      {{/exames}}
+      {{#analises}}
+      <li class="analises timeline-inverted">
+          <div class="timeline-badge success"><i class="flaticon-drops1"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">{{exame}}</h4>
+              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><span class="date"> {{data}}<span> </small></p>
+            </div>
+            <div class="timeline-body">
+                <p>Grupo: {{grupo}}</p>
+            </div>
+          </div>
+      </li>
+      {{/analises}}
+      {{#consultas}}
+      <li  class="consultas" >
+        <div class="timeline-badge primary"><i class="flaticon-thermometer23"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">{{especialidade}}</h4>
+            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><span class="date"> {{dtaadmissao}}<span> </small></p>
+          </div>
+          <div class="timeline-body">
+            <p>Episódio: {{episodio}}</p>
+            <p>Médico: {{medico}}</p>
+            <p>Diário: {{diario}}</p>
+          </div>
+        </div>
+      </li>
+      {{/consultas}}
+      {{#internamentos}}
+      <li  class="internamentos" >
+        <div class="timeline-badge info"><i class="flaticon-bandaid"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">{{especialidade}}</h4>
+            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><span class="date"> {{dtaadmissao}}<span> </small></p>
+          </div>
+          <div class="timeline-body">
+            <p>Episódio: {{episodio}}</p>
+            <p>Médico: {{medico}}</p>
+            <p>Diário: {{diario}}</p>
+          </div>
+        </div>
+      </li>
+      {{/internamentos}}
+      {{#urgencia}}
+      <li  class="urgencia" >
+        <div class="timeline-badge danger"><i class="flaticon-ambulance9"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">{{especialidade}}</h4>
+            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><span class="date"> {{dtaadmissao}}<span> </small></p>
+          </div>
+          <div class="timeline-body">
+            <p>Episódio: {{episodio}}</p>
+            <p>Médico: {{medico}}</p>
+            <p>Diário: {{diario}}</p>
+          </div>
+        </div>
+      </li>
+      {{/urgencia}}
+      {{#hospitaldia}}
+      <li  class="hospitaldia" >
+        <div style="background-color:#8e44ad;color:white" class="timeline-badge"><i class="flaticon-medicine14"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">{{especialidade}}</h4>
+            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><span class="date"> {{dtaadmissao}}<span> </small></p>
+          </div>
+          <div class="timeline-body">
+            <p>Episódio: {{episodio}}</p>
+            <p>Médico: {{medico}}</p>
+            <p>Diário: {{diario}}</p>
+          </div>
+        </div>
+      </li>
+      {{/hospitaldia}}
+      {{#bloco}}
+      <li  class="hospitaldia" >
+        <div style="background-color:#27ae60;color:white" class="timeline-badge"><i class="flaticon-syringe6"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">{{especialidade}}</h4>
+            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><span class="date"> {{dtaadmissao}}<span> </small></p>
+          </div>
+          <div class="timeline-body">
+            <p>Episódio: {{episodio}}</p>
+            <p>Médico: {{medico}}</p>
+            <p>Diário: {{diario}}</p>
+          </div>
+        </div>
+      </li>
+      {{/bloco}}
+    </ul>
+  </div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+  function openPDF(urlToPdfFile) {
+    if(urlToPdfFile.substring(0, 4) !="http"){
+      urlToPdfFile =  "http://192.168.1.171/relatorios/"+urlToPdfFile;
+    }
+
+    window.open(urlToPdfFile, 'pdf');
+  }
+</script>
+<script>
+  var ul = $("#records");
+  var arr = $.makeArray(ul.children("li"));
+//new Date(year, month, day, hours, minutes, seconds, milliseconds)
+  arr.sort(function(a, b) {
+      var yyyyA,mmA,ddA,hhA,mmA,ssA;
+      var yyyyB,mmB,ddB,hhB,mmB,ssB;
+      var textA = $(a).find(".date").text();
+      var textB = $(b).find(".date").text();
+    //  console.log(textA);
+      var date1 = new Date(textA.substring(7,11),  textA.substring(4,6),textA.substring(0,3)  );
+      var date2 = new Date(textB.substring(7,11),  textB.substring(4,6),textB.substring(0,3) );
+    //  console.log(date1);
+      if (date1 > date2) return -1;
+      if (date1 < date2) return 1;
+
+      return 0;
+  });
+
+  ul.empty();
+
+  $.each(arr, function() {
+      ul.append(this);
+  });
+
+  $(".timeline-title").click(function(){
+    if($(this).parent().next('.timeline-body').css('display') == 'none')
+      $(this).parent().next('.timeline-body').show("fast");
+    else
+      $(this).parent().next('.timeline-body').hide("fast");
+  });
+  $("#btn_diag").click(function(){
+    var e = $('.diagnosticos');
+    e.toggle();
+  });
+  $("#btn_exam").click(function(){
+    var e = $('.exames');
+    e.toggle();
+  });
+  $("#btn_con").click(function(){
+    var e = $('.consultas');
+    e.toggle();
+  });
+  $("#btn_anl").click(function(){
+    var e = $('.analises');
+    e.toggle();
+  });
+</script>
+</body>
+</html>

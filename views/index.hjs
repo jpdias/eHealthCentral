@@ -1,0 +1,15 @@
+<html>
+<body>
+<h1>HOME</h1>
+
+<br>
+<ul>
+{{#patients}}
+
+<li><a href="http://192.168.1.139:3000/timeline?processo={{number}}">{{number}}</a> </li>
+
+{{/patients}}
+</ul>
+<script src="js/jquery.js"></script>
+</body>
+</html>

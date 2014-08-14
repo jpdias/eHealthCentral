@@ -1,0 +1,47 @@
+app = require('../app');
+
+//var mongoose = module.exports = require('mongoose');
+/*
+var db = mongoose.connect("mongodb://localhost/cda", function(err) {
+    if(err) console.log('MongoDB: connection error -> ' + err);
+    else console.log('MongoDB: successfully connected');
+});*/
+
+
+var databaseUrl = "localhost/cda"; // "username:password@example.com/mydb"
+var collections = ["patients"];
+var db = require("mongojs").connect(databaseUrl, collections);
+
+app.post('patient', function(req,res){
+  console.log(req.body);
+  db.patients.save(req.body, function(err, saved) {
+    if( err || !saved ) console.log("User not saved");
+    else console.log("User saved");
+  });
+});
+app.post('patient', function(req,res){
+  console.log(req.body);
+  db.patients.save(req.body, function(err, saved) {
+    if( err || !saved ) console.log("User not saved");
+    else console.log("User saved");
+  });
+});app.post('patient', function(req,res){
+  console.log(req.body);
+  db.patients.save(req.body, function(err, saved) {
+    if( err || !saved ) console.log("User not saved");
+    else console.log("User saved");
+  });
+});
+
+app.get('/xml',function(req,res){
+  var builder = require('xmlbuilder');
+  var xml = builder.create('root')
+    .ele('xmlbuilder', {'for': 'node-js'})
+      .ele('repo', {'type': 'git'}, 'hey')
+    .end({ pretty: true});
+
+
+  res.header('Content-Type','text/xml').send(xml);
+
+
+});
