@@ -35,7 +35,7 @@ app.get('/timeline', function(req,res){
       processo:result[0].processo,
       sexo:sex,
       datanasc:result[0].datanascimento,
-      diagnosticos:new Array(),
+      diagnosticos:result[0].diagnosticos,
       consultas: new Array(),
       internamentos: new Array(),
       urgencia: new Array(),
@@ -75,6 +75,8 @@ app.get('/timeline', function(req,res){
       }
       res.render('timeline/index',dados);
     });
+});
 
-
+app.get('/map', function(req,res){
+  res.render('map/index');
 });

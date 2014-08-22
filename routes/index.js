@@ -121,5 +121,16 @@ app.get('/api/record', function(req,res){
   }
 });
 
+app.post('/api/patientInfo',function(req,res){
+  log.info("POST Info");
+  db.patients.find( {'morada.concelho':req.body.morada}, function(err, result) {
+    if( err || !result ) log.error("Error:" + err);
+    else{
+      res.send(result);
+    }
+  });
+});
+
+
 require("./xml");
 require("./views");

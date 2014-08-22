@@ -47,6 +47,9 @@ body{
         map.dragMap = false;
         map.zoomControl.panControlEnabled = false;
         map.zoomControl.zoomControlEnabled = false;
+        map.zoomOnDoubleClick = false;
+        map.handDrawn = false;
+
         // set path to images
         map.pathToImages = "ammap/images/";
 
@@ -75,13 +78,13 @@ body{
            }
         });
 
-        map.handDrawn = false;
 
         map.areasSettings = {
             autoZoom: false,
-            selectedColor: "#CC0000",
+            selectedColor: "#1abc9c",
             selectable: true,
-            fixedSize: true
+            fixedSize: true,
+            color:"#2ecc71"
         };
 
         // write the map to container div
