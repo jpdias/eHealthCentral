@@ -71,8 +71,22 @@ body{
                   data : dados,
                   success: function(data, textStatus, jqXHR)
                   {
-                    console.log(data.length);
-                     $("#data").html("<h4> Número de Pacientes: "+data.length+"</h4>");
+
+                     $("#data").html("<h4> Número de Pacientes: "+data.patients.length+"</h4>"+
+                                 "<br><h4> Número de Eventos: "+data.records.length+"</h4>");
+
+
+                  uniqueCount = ['CON'];
+                  var map = new Object();
+
+                  for(var i = 0; i < data.records.length; i++) {
+                   if(map[data.records[i].modulo] != null) {
+                      map[data.records[i].modulo] += 1;
+                  } else {
+                      map[data.records[i].modulo] = 1;
+                      }
+                  }
+                  $("#data").append("<br><h4>"+JSON.stringify(map).replace("{","").replace("}","<br>")+"<h4>");
                   }
               });
            }

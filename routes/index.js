@@ -123,12 +123,26 @@ app.get('/api/record', function(req,res){
 
 app.post('/api/patientInfo',function(req,res){
   log.info("POST Info");
+  var data;
   db.patients.find( {'morada.concelho':req.body.morada}, function(err, result) {
     if( err || !result ) log.error("Error:" + err);
     else{
-      res.send(result);
+      data = result;
+      var codes = [];
+      for(var i = 0 ; i<data.length; i++){
+        codes.push(data[i].processo);
+      }
+      
+      db.records.find({"processo":{$in:codes}}, function(err,result){
+        if( err || !result ) log.error("Error:" + err);
+        else{
+          res.send({"patients": data,"records":result});
+        }
+      })
+
     }
-  });
+  })
+
 });
 
 
